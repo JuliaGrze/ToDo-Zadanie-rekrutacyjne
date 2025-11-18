@@ -54,17 +54,14 @@ namespace TodoApp.Application.Services
                 .ToListAsync(); 
         }
 
-        public async Task<TodoItemDto?> MarkDoneAsync(int id, CancellationToken ct = default)
+        public async Task<TodoItemDto?> ToggleDoneAsync(int id, CancellationToken ct = default)
         {
             var entity = await _db.TodoTasks.FirstOrDefaultAsync(t => t.Id == id, ct);
             if (entity is null)
                 return null;
 
-            if (!entity.IsDone)
-            {
-                entity.IsDone = true;
-                await _db.SaveChangesAsync(ct);
-            }
+            entity.IsDone = !entity.IsDone;
+            await _db.SaveChangesAsync(ct);
 
             return new TodoItemDto
             {

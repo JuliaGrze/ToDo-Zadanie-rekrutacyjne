@@ -6,6 +6,6 @@ namespace TodoApp.Application.Interfaces
     {
         Task<IReadOnlyList<TodoItemDto>> GetAllAsync(CancellationToken ct = default);
         Task<TodoItemDto> CreateAsync(CreateTodoItemDto dto, CancellationToken ct = default);
-        Task<TodoItemDto?> MarkDoneAsync(int id, CancellationToken ct = default);
+        Task<TodoItemDto?> ToggleDoneAsync(int id, CancellationToken ct = default);
     }
 }

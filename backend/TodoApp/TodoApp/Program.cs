@@ -23,8 +23,8 @@ services.AddCors(options =>
 
 // Controllers + Swagger
 services.AddControllers();
-services.AddEndpointsApiExplorer();
-services.AddSwaggerGen();
+//services.AddEndpointsApiExplorer();
+//services.AddSwaggerGen();
 
 // EF Core + PostgreSQL
 var connectionString = configuration.GetConnectionString("DefaultConnection");
@@ -38,11 +38,11 @@ var app = builder.Build();
 
 
 // HTTP pipeline
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+//if (app.Environment.IsDevelopment())
+//{
+//    app.UseSwagger();
+//    app.UseSwaggerUI();
+//}
 
 app.UseHttpsRedirection();
 
