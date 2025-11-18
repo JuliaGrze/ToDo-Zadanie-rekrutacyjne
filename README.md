@@ -76,7 +76,7 @@ ng serve
 Aplikacja: `http://localhost:4200`
 
 Frontend wysyła żądania do API pod adresem:  
-`https://localhost:7234/api/todos`
+`http://localhost:5065/api/todos`
 
 ## Szybki start
 
