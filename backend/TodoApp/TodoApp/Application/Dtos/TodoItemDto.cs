@@ -1,6 +1,6 @@
-﻿namespace TodoApp.Domain.Entities
+﻿namespace TodoApp.Application.Dtos
 {
-    public class TodoTask
+    public class TodoItemDto
     {
         public int Id { get; set; }
         public string Title { get; set; } = null!;

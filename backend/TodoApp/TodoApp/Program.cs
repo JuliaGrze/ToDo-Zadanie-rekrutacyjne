@@ -1,15 +1,43 @@
+using Microsoft.EntityFrameworkCore;
+using TodoApp.Application.Interfaces;
+using TodoApp.Application.Services;
+using TodoApp.Infrastructure.Data; 
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+var services = builder.Services;
+var configuration = builder.Configuration;
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+// CORS dla Angulara
+const string CorsPolicy = "AllowAngular";
+
+services.AddCors(options =>
+{
+    options.AddPolicy(CorsPolicy, policy =>
+    {
+        policy.WithOrigins("http://localhost:4200")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
+// Controllers + Swagger
+services.AddControllers();
+services.AddEndpointsApiExplorer();
+services.AddSwaggerGen();
+
+// EF Core + PostgreSQL
+var connectionString = configuration.GetConnectionString("DefaultConnection");
+services.AddDbContext<TodoDbContext>(options =>
+    options.UseNpgsql(connectionString));
+
+// Serwis aplikacyjny
+services.AddScoped<ITodoTaskService, TodoTaskService>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+
+// HTTP pipeline
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -17,6 +45,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors(CorsPolicy);
 
 app.UseAuthorization();
 
