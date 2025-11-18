@@ -1,0 +1,147 @@
+.todo-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1.5rem 2rem;
+  background: #ffffff;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* Pasek: tytuł + przycisk */
+.todo-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.todo-toolbar h2 {
+  margin: 0;
+}
+
+/* Info / błąd */
+.info {
+  margin: 0.5rem 0;
+  color: #4b5563;
+}
+
+.error {
+  margin: 0.5rem 0;
+  padding: 0.5rem 0.8rem;
+  border-radius: 6px;
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+/* Lista i elementy */
+.todo-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.todo-item {
+  padding: 0.9rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  background: #f9fafb;
+}
+
+/* Nagłówek: tytuł + badge */
+.todo-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.title {
+  font-weight: 600;
+}
+
+.title.done {
+  text-decoration: line-through;
+  color: #9ca3af;
+}
+
+.status-badge {
+  padding: 0.2rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  background: #e5e7eb;
+  color: #374151;
+}
+
+.status-badge.done {
+  background: #bbf7d0;
+  color: #166534;
+}
+
+/* Opis + akcje */
+.description {
+  margin: 0.4rem 0 0;
+  font-size: 0.9rem;
+  color: #4b5563;
+}
+
+.todo-actions {
+  margin-top: 0.5rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Przyciski */
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-primary {
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background: #1d4ed8;
+}
+
+.btn-toggle {
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  background: #f3d9ff;
+  color: #111827;
+}
+
+.btn-toggle:hover {
+  background: #d1d5db;
+}
+
+@media (max-width: 600px) {
+  .todo-container {
+    margin: 1rem;
+    padding: 1rem;
+  }
+
+  .todo-toolbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .todo-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

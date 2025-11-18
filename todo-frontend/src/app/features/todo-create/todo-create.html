@@ -1,0 +1,49 @@
+<div class="todo-create-container">
+  <h2>Dodaj nowe zadanie</h2>
+
+  <form (ngSubmit)="createNewTask()" #form="ngForm">
+    <div class="field">
+      <label for="title">Tytuł</label>
+      <input
+        id="title"
+        name="title"
+        type="text"
+        required
+        [(ngModel)]="newTask.title"
+        [disabled]="loading"
+        placeholder="Np. Kupić mleko"
+      />
+    </div>
+
+    <div class="field">
+      <label for="description">Opis (opcjonalnie)</label>
+      <textarea
+        id="description"
+        name="description"
+        rows="3"
+        [(ngModel)]="newTask.description"
+        [disabled]="loading"
+        placeholder="Dodatkowe informacje..."
+      ></textarea>
+    </div>
+
+    @if (error) {
+        <p class="error">
+        {{ error }}
+        </p>
+    }
+
+    <div class="buttons">
+      <button
+        type="submit"
+        [disabled]="loading || !newTask.title.trim()"
+      >
+        {{ loading ? 'Zapisywanie...' : 'Zapisz zadanie' }}
+      </button>
+
+      <a [routerLink]="['/tasks/list']" class="link-back">
+        ← Powrót do listy zadań
+      </a>
+    </div>
+  </form>
+</div>

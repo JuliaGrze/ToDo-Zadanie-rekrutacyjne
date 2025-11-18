@@ -42,7 +42,7 @@ namespace TodoApp.Application.Services
         {
             return await _db.TodoTasks
                 .AsNoTracking()
-                .OrderBy(t => t.IsDone)
+                .OrderByDescending(t => t.IsDone)
                 .ThenBy(t => t.Id)
                 .Select(t => new TodoItemDto
                 {

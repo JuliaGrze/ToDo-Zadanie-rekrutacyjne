@@ -1,0 +1,52 @@
+<div class="todo-container">
+  <div class="todo-toolbar">
+    <h2>Lista zadań</h2>
+
+    <!-- przycisk przejścia do komponentu dodawania -->
+    <button class="btn-primary" routerLink="/create/task">
+      Dodaj nowe zadanie
+    </button>
+  </div>
+
+  @if (loading) {
+    <p class="info">Ładowanie zadań...</p>
+  }
+
+  @if (error) {
+    <p class="error">{{ error }}</p>
+  }
+
+  @if (!loading && !error && todos.length === 0) {
+    <p class="info">Brak zadań do wyświetlenia.</p>
+  }
+
+  @if (!loading && !error && todos.length > 0) {
+    <ul class="todo-list">
+      @for (todo of todos; track todo.id) {
+        <li class="todo-item">
+          <div class="todo-header">
+            <span class="title" [class.done]="todo.isDone">
+              {{ todo.title }}
+            </span>
+
+            <span class="status-badge" [class.done]="todo.isDone">
+              {{ todo.isDone ? 'Zrobione' : 'Do zrobienia' }}
+            </span>
+          </div>
+
+          @if (todo.description) {
+            <p class="description">
+              {{ todo.description }}
+            </p>
+          }
+
+          <div class="todo-actions">
+            <button type="button" class="btn-toggle" (click)="onToggleDone(todo)">
+              {{ todo.isDone ? 'Oznacz jako niewykonane' : 'Oznacz jako wykonane' }}
+            </button>
+          </div>
+        </li>
+      }
+    </ul>
+  }
+</div>
