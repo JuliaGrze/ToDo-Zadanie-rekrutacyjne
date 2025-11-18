@@ -1,9 +1,11 @@
 # ToDo App – zadanie rekrutacyjne (.NET + Angular + PostgreSQL)
 
+Aplikacja ToDo z backendem w ASP.NET Core (.NET 8), frontendem w Angularze i bazą PostgreSQL.
+
 ## Technologie
 
-- Backend: .NET 8, ASP.NET Core Web API, Entity Framework Core, PostgreSQL
-- Frontend: Angular, TypeScript
+- Backend: .NET 8, ASP.NET Core Web API, Entity Framework Core, PostgreSQL  
+- Frontend: Angular 20, TypeScript  
 - Testy: xUnit (backend)
 
 ## Struktura repozytorium
@@ -14,24 +16,32 @@ backend/TodoApp/TodoApp.Tests  # testy backendu
 todo-frontend                  # frontend Angular
 ```
 
----
+## Uproszczenia
 
-## Jak uruchomić aplikację i jak wszystko się łączy
+- Foldery `Domain` / `Infrastructure` zamiast osobnych projektów – dla małego zadania ważniejsza była prostota uruchomienia niż pełny podział na projekty.
+- Brak osobnej warstwy repozytoriów – serwis korzysta bezpośrednio z `DbContext`; przy jednej encji repozytoria byłyby nadmiarowe.
+- Login/hasło w `appsettings.json` – zostawione dla łatwiejszego uruchomienia; w produkcji użyłabym secrets/zmiennych środowiskowych.
+
+## Wymagane wersje narzędzi
+
+- .NET SDK 8.0  
+- Node.js ≥ 20.10.0 (u mnie 22.17.1)  
+- Angular CLI 20.1.3  
+- PostgreSQL (projekt testowany na wersji 18.1)  
+- (opcjonalnie) `dotnet-ef` – do migracji z linii komend
+
+## Jak uruchomić aplikację
 
 ### 1. Baza danych (PostgreSQL)
 
-1. Uruchom PostgreSQL.
-2. Utwórz bazę danych:
+1. Uruchom PostgreSQL.  
+2. Utwórz bazę:
 
    ```sql
    CREATE DATABASE todoapp;
    ```
 
-3. W pliku:
-
-   `backend/TodoApp/TodoApp/appsettings.json`
-
-   ustaw connection string, np.:
+3. W pliku `backend/TodoApp/TodoApp/appsettings.json` ustaw connection string pod siebie, np.:
 
    ```json
    "ConnectionStrings": {
@@ -39,27 +49,14 @@ todo-frontend                  # frontend Angular
    }
    ```
 
-   U mnie lokalnie hasło to `2004`, u siebie wpisz własne.
-
----
-
 ### 2. Backend (API)
-
-Przejdź do katalogu API:
 
 ```bash
 cd backend/TodoApp/TodoApp
 dotnet restore
-dotnet ef database update   # utworzenie tabel na bazie migracji
+dotnet ef database update   # migracja bazy
 dotnet run
 ```
-Dostępne endpointy:
-
-- `GET  /api/todos`
-- `POST /api/todos`
-- `PUT  /api/todos/{id}/toggle-done`
-
----
 
 ### 3. Testy backendu
 
@@ -68,40 +65,22 @@ cd backend/TodoApp/TodoApp.Tests
 dotnet test
 ```
 
----
-
 ### 4. Frontend (Angular)
-
-Przejdź do katalogu frontendu:
 
 ```bash
 cd todo-frontend
 npm install
-```
-
-Uruchom frontend:
-
-```bash
 ng serve
 ```
 
-Aplikacja będzie dostępna pod adresem:
+Aplikacja: `http://localhost:4200`
 
-- `http://localhost:4200`
+Frontend wysyła żądania do API pod adresem:  
+`https://localhost:7234/api/todos`
 
----
+## Szybki start
 
-### 5. Połączenie frontendu z backendem
-
-- Frontend (Angular) wysyła żądania pod:
-  `https://localhost:7234/api/todos`
-- Backend ma włączony CORS dla `http://localhost:4200`, więc przeglądarka może łączyć się bezpośrednio z API.
-
----
-
-### 6. Szybki start 
-
-1. PostgreSQL: baza `todoapp` + connection string w `backend/TodoApp/TodoApp/appsettings.json`.
+1. PostgreSQL: baza `todoapp` + connection string w `backend/TodoApp/TodoApp/appsettings.json`.  
 2. Backend:
 
    ```bash
